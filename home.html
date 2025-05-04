@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assignment2.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+
+    <script src="quote.js"></script>
+    <title>Home</title>
+</head>
+<body>
+
+<h2> INST377-ACTIVITIES </h2>
+
+<div class="navbar">
+    <div class = "nav-title">
+      <a href="home.html">Home</a>
+      <a href="stocks.html">Stocks</a>
+      <a href="dogs.html">Dogs</a>
+</div>
+</div>
+
+<h2> Have fun with the activities below! </h2>
+
+<a href="stocks.html">
+    <button class="cool-button" role="button">Stocks</button>
+</a>
+
+
+<br></br>
+
+<a href="dogs.html">
+    <button class="cool-button" role="button">Dogs</button>
+</a>
+
+<body onload="getQuote()">
+    <div class="quote">
+      <h2>Quote of the Day:</h2>
+      <p id="quote"></p>
+    </div>
+
+   
+    <div class="centerit">
+    <div  class = "listening-component">   
+    <h2>In this web page there are options to Navigate using Audio!</h2>
+    <p>Ensure your MIC is enabled to be able to use the feature</p>
+    <ul>
+      <li>Navigate to a Different Page
+        <p>Say: Navigate to </p>
+      </li>
+      <li>Change the Page Color
+        <p>Say: Change the color to </p>
+      </li>
+      <li>Say Hello Back to you!
+        <p>Say: Hello</p>
+      </li>
+    </ul>
+    
+        <button class="listening_buttons" onclick="turnOnListening()">Turn On Listening</button>
+        <button class="listening_buttons" onclick="turnOffListening()">Turn Off Listening</button>
+    </div>
+    </div>
+
+
+  
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+
+    <script>
+      
+  
+    //   turn mic on and off
+    function turnOnListening() {
+        if (annyang) {
+  
+  // navigate to page
+  const pages = {
+    stocks: "stocks.html",
+    dogs: "dogs.html",
+    home: "home.html"
+  };
+  // hello
+  const commands = {
+    'hello': () => {
+      alert('Hello world!');
+    },
+  //   change background color
+    'change the color to *color': (color) => {
+      document.body.style.backgroundColor = color;
+    },
+  //   navigate 
+    'navigate to *page': (page) => {
+      const target = page.toLowerCase().trim();
+      if (pages[target]) {
+        window.location.href = pages[target];
+      }
+    }
+  };
+
+  annyang.addCommands(commands);
+
+}
+          annyang.start();
+        }
+      
+      function turnOffListening() {
+          annyang.abort();
+        }
+
+    </script>
+  
+  </body>
+  </html>
